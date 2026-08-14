@@ -4,12 +4,12 @@ set -euo pipefail
 TASK_NAME="$1"
 TASK_CONFIG="$2"
 GPU_ID="$3"
+PORT="$4"
 
 POLICY_NAME="UnifiedVLA"
 CKPT_SETTING="robotwin_v1_ckpt14_joint"
 SEED=0
 HOST="127.0.0.1"
-PORT=8001
 INSTRUCTION_TYPE="unseen"
 
 CUDA_VISIBLE_DEVICES="$GPU_ID" PYTHONWARNINGS=ignore::UserWarning \
