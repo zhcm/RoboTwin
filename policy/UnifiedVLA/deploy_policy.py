@@ -132,8 +132,8 @@ class UnifiedVLAClient:
             }
         )
         actions = np.asarray(response["actions"], dtype=np.float32)
-        if actions.shape != (4, 16):
-            raise ValueError(f"Expected UnifiedVLA actions [4,16], got {actions.shape}")
+        if actions.ndim != 2 or actions.shape[1] != 16:
+            raise ValueError(f"Expected UnifiedVLA actions [N,16], got {actions.shape}")
         if not np.isfinite(actions).all():
             raise ValueError("UnifiedVLA actions contain non-finite values")
         self.actions.extend(action.copy() for action in actions)
@@ -149,10 +149,10 @@ def get_model(usr_args: dict[str, Any]) -> UnifiedVLAClient:
     if not isinstance(task_name, str):
         raise ValueError("task_name must be provided by the RoboTwin evaluator")
     return UnifiedVLAClient(
-        host=str(usr_args.get("host", "127.0.0.1")),
-        port=int(usr_args.get("port", 8000)),
+        host=str(usr_args["host"]),
+        port=int(usr_args["port"]),
         task_name=task_name,
-        timeout=float(usr_args.get("timeout", 600)),
+        timeout=float(usr_args["timeout"]),
     )
 
 
