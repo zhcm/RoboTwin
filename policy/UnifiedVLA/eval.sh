@@ -4,10 +4,11 @@ set -euo pipefail
 source /file_system/vepfs/algorithm/chenming.zhang/miniconda3/etc/profile.d/conda.sh
 conda activate robotwin
 
-TASK_CONFIG="$1"
-PORT="$2"
-SIM_GPU="$3"
-shift 3
+CKPT_SETTING="$1"
+TASK_CONFIG="$2"
+PORT="$3"
+SIM_GPU="$4"
+shift 4
 TASKS=("$@")
 if [ ${#TASKS[@]} -eq 0 ]; then
     TASKS=($(cut -d: -f1 task_config/_eval_step_limit.yml))
